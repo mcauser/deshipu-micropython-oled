@@ -1,8 +1,34 @@
+MicroPython OLED
+================
+
+This is a collection of drivers for handling monochrome OLED displays. There
+are many versions of such drivers, and there is even a driver for the SSD1306
+included in MicroPython's repository, but I decided to make my own, because I
+needed something a little bit more optimized.
+
+To conserve memory, each version of each driver is in a separate self-contained
+file that you need to copy to your board. There is no inheritance and no
+multiple imports -- I'm only using the build-in `framebuf` module. Of course
+that means there is some repetition between the different drivers, but that's a
+price I'm willing to pay. There are also no constants that would need to be
+converted to bytes before sending -- I'm using raw byte strings everywhere.
+
+To make it fast, I'm calling MicroPython's built-in functions directly, without
+wrapping them into convenience functions. I'm also only allocating any memory
+once, at the beginning, and then re-using those buffers for everything.
+
+Finally, I have added some convenience functions for flipping and mirroring the
+display, reversing its colors, hardware scrolling, setting contrast and
+switching it off and on.
+
+There are no drawing functions on the display object itself, they are available
+on the frame buffer object, available as the `fb` attribute.
+
 Examples
-********
+========
 
 SH1106 I2C Example
-==================
+------------------
 
 ```python
 import sh1106_i2c
@@ -16,7 +42,7 @@ d.update()
 ```
 
 SH1106 SPI Example
-==================
+------------------
 
 ```python
 import sh1106_spi
