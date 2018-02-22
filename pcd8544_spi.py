@@ -12,10 +12,9 @@ class Display:
         self._rst = rst or (lambda x: x)
         self._dc = dc
         self._fn = 0x20
-        buffer = bytearray(504)
-        self.fb = framebuf.FrameBuffer(buffer, 84, 48, framebuf.MONO_VLSB)
-        self._buffer = memoryview(buffer)
-
+        self._buffer = bytearray(504)
+        self.fb = framebuf.FrameBuffer(self._buffer, 84, 48,
+                                       framebuf.MONO_VLSB)
         self.reset()
 
     def _command(self, command):
