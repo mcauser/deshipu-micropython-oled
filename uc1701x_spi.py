@@ -15,8 +15,9 @@ class Display:
         buffer = bytearray(width * pages)
         self.fb = framebuf.FrameBuffer(buffer, width, height, framebuf.MVLSB)
         self._buffer = memoryview(buffer)
-        self._move = bytearray(b'\xb0\x00\x10')
+        self._move = bytearray(b'\xb0\x04\x10')
         self.reset()
+        self.mirror(0)
         self.active(1)
 
     def _command(self, data):
