@@ -44,6 +44,7 @@ class Display:
 
     def mirror(self, val):
         self._command(b'\xa0' if val else b'\xa1')
+        self._move[1] = 0 if val else 4
 
     def contrast(self, val):
         self._word[0] = 0x81
